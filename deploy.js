@@ -1,13 +1,13 @@
+require('dotenv').config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const { Web3 } = require('web3');
 const { interface, bytecode } = require('./compile');
 
 const provider = new HDWalletProvider(
-  'REPLACE_WITH_YOUR_MNEMONIC',
-  // remember to change this to your own phrase!
-  'REPLACE WITH YOUR INFURA URL'
-  // remember to change this to your own endpoint!
+  process.env.SECRET_WALLET_MNEMONIC,
+  process.env.INFURA_URL
 );
+
 const web3 = new Web3(provider);
 
 const deploy = async () => {
@@ -23,4 +23,5 @@ const deploy = async () => {
   console.log("Contract deployed to", result.options.address);
   provider.engine.stop();
 };
+
 deploy();
